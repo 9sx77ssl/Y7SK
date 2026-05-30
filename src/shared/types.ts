@@ -24,6 +24,12 @@ export interface TrackInfo {
   artwork?: string
 }
 
+/** A snapshot of the current now-playing state (pulled on demand). */
+export interface NowPlaying {
+  track: TrackInfo | null
+  playback: PlaybackState
+}
+
 /**
  * The API surface exposed on `window.y7sk` by `src/preload/index.ts`
  * (the trusted host-shell preload). The renderer consumes this; the preload
@@ -48,6 +54,8 @@ export interface Y7skApi {
   onSettings(cb: (settings: Settings) => void): () => void
 
   // --- Now playing ---
+  /** Pull the current now-playing snapshot (so the UI shows the track already playing). */
+  getNowPlaying(): Promise<NowPlaying>
   onTrack(cb: (track: TrackInfo) => void): () => void
   onPlayback(cb: (state: PlaybackState) => void): () => void
 

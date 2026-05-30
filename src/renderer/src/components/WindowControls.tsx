@@ -41,8 +41,8 @@ export function WindowControls(): React.JSX.Element {
         title="Close"
         onClick={() => window.y7sk.close()}
       >
-        <svg viewBox="0 0 11 11" aria-hidden="true" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round">
-          <path d="M1 1 L10 10 M10 1 L1 10" />
+        <svg viewBox="0 0 11 11" aria-hidden="true" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+          <path d="M2 2 L9 9 M9 2 L2 9" />
         </svg>
       </button>
     </div>

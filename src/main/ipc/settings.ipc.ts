@@ -16,7 +16,7 @@ export function registerSettingsIpc(ctx: AppContext): void {
     const v = Boolean(value) as Settings[SettingKey]
 
     const updated = settings.set(k, v)
-    // Apply the live effect (alwaysOnTop, launchOnStartup, ...) immediately.
+    // Apply the live effect (launchOnStartup sync) immediately.
     settings.applySetting(ctx.getWindow(), k, v)
     // Broadcast the new full settings object to the renderer.
     ctx.getWindow()?.webContents.send(IPC.SETTINGS_CHANGED, updated)

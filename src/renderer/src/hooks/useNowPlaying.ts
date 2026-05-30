@@ -12,6 +12,11 @@ export function useNowPlaying(): NowPlaying {
   const [playback, setPlayback] = useState<PlaybackState>('none')
 
   useEffect(() => {
+    // Seed with whatever is already playing, then keep in sync with live pushes.
+    void window.y7sk.getNowPlaying().then(({ track: t, playback: p }) => {
+      if (t) setTrack(t)
+      setPlayback(p)
+    })
     const offTrack = window.y7sk.onTrack(setTrack)
     const offPlayback = window.y7sk.onPlayback(setPlayback)
     return () => {

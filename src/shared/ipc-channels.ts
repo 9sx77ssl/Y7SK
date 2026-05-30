@@ -19,9 +19,10 @@ export const IPC = {
   SETTINGS_SET: 'settings:set',
   SETTINGS_CHANGED: 'settings:changed',
 
-  // Now playing (scbridge -> main -> renderer)
+  // Now playing (scbridge -> main -> renderer; renderer pulls current via TRACK_GET)
   TRACK_CHANGED: 'track:changed',
-  TRACK_PLAYBACK: 'track:playback'
+  TRACK_PLAYBACK: 'track:playback',
+  TRACK_GET: 'track:get'
 } as const
 
 export type IpcChannel = (typeof IPC)[keyof typeof IPC]

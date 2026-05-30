@@ -37,7 +37,7 @@ export function set<K extends SettingKey>(key: K, value: Settings[K]): Settings 
 
 // Apply the live (runtime) effect of a single setting change.
 export function applySetting<K extends SettingKey>(
-  win: BrowserWindow | null,
+  _win: BrowserWindow | null,
   key: K,
   value: Settings[K]
 ): void {
@@ -50,9 +50,6 @@ export function applySetting<K extends SettingKey>(
       } else if (process.platform === 'linux') {
         setLinuxAutostart(on)
       }
-      break
-    case 'alwaysOnTop':
-      win?.setAlwaysOnTop(on)
       break
     case 'hardwareAccel':
       // Startup-only: handled before app.whenReady; no live effect (UI shows restart-required).
@@ -69,7 +66,6 @@ export function applySetting<K extends SettingKey>(
 // Apply all live settings at startup (idempotent sync for OS-level state).
 export function applyAll(win: BrowserWindow): void {
   const s = getAll()
-  win.setAlwaysOnTop(s.alwaysOnTop)
   // Keep the OS login-item / autostart entry in sync with the stored preference.
   applySetting(win, 'launchOnStartup', s.launchOnStartup)
 }

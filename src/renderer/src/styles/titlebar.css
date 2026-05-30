@@ -25,7 +25,6 @@
   height: 18px;
   display: block;
   flex: 0 0 auto;
-  filter: drop-shadow(0 0 6px var(--accent-glow));
 }
 
 .titlebar__wordmark {
@@ -66,16 +65,16 @@
   background: var(--surface-hover);
 }
 .titlebar__gear[data-active='true'] {
-  color: var(--accent);
-  background: var(--accent-soft);
+  color: var(--text);
+  background: var(--surface-hover);
 }
 .titlebar__gear svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   transition: transform var(--dur) var(--ease);
 }
 .titlebar__gear[data-active='true'] svg {
-  transform: rotate(60deg);
+  transform: rotate(35deg);
 }
 
 /* Window controls. */
@@ -100,7 +99,8 @@
   background: var(--surface-hover);
   color: var(--text);
 }
+/* Close matches the others on hover — neutral, not a red block. */
 .wc__btn--close:hover {
-  background: var(--danger);
-  color: #fff;
+  background: var(--surface-hover);
+  color: var(--text);
 }

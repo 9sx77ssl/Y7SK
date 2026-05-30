@@ -1,8 +1,12 @@
 // Now-playing wiring: scbridge -> main -> renderer, OS notifications, Windows thumbar.
 import { ipcMain, nativeImage, Notification } from 'electron'
 import { IPC } from '@shared/ipc-channels'
-import type { PlaybackState, TrackInfo } from '@shared/types'
+import type { NowPlaying, PlaybackState, TrackInfo } from '@shared/types'
 import type { AppContext } from './context'
+
+// Cached current now-playing so the renderer can pull it on mount (not only on change).
+let lastTrack: TrackInfo | null = null
+let lastPlayback: PlaybackState = 'none'
 
 // Best-effort validation of an incoming TrackInfo payload from the sandboxed bridge.
 function isTrackInfo(v: unknown): v is TrackInfo {
@@ -69,8 +73,12 @@ function setupThumbarButtons(ctx: AppContext): void {
 
 // Register media IPC listeners + platform integrations.
 export function initMedia(ctx: AppContext): void {
+  // Renderer pulls the current snapshot on mount so an already-playing track shows immediately.
+  ipcMain.handle(IPC.TRACK_GET, (): NowPlaying => ({ track: lastTrack, playback: lastPlayback }))
+
   ipcMain.on(IPC.TRACK_CHANGED, (_e, track: unknown) => {
     if (!isTrackInfo(track)) return
+    lastTrack = track
     const win = ctx.getWindow()
     win?.webContents.send(IPC.TRACK_CHANGED, track)
     // Surface a quiet desktop notification on track change.
@@ -95,6 +103,7 @@ export function initMedia(ctx: AppContext): void {
 
   ipcMain.on(IPC.TRACK_PLAYBACK, (_e, state: unknown) => {
     if (!isPlaybackState(state)) return
+    lastPlayback = state
     const win = ctx.getWindow()
     win?.webContents.send(IPC.TRACK_PLAYBACK, state)
   })

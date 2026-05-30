@@ -2,7 +2,7 @@
 import { contextBridge, ipcRenderer, type IpcRendererEvent } from 'electron'
 import { IPC } from '@shared/ipc-channels'
 import type { SettingKey, Settings } from '@shared/settings'
-import type { PlaybackState, TrackInfo, Y7skApi } from '@shared/types'
+import type { NowPlaying, PlaybackState, TrackInfo, Y7skApi } from '@shared/types'
 
 // Subscribe to a push channel, returning an unsubscribe that removes this exact listener.
 function subscribe<T>(channel: string, cb: (payload: T) => void): () => void {
@@ -30,6 +30,7 @@ const api: Y7skApi = {
   onSettings: (cb) => subscribe<Settings>(IPC.SETTINGS_CHANGED, cb),
 
   // --- Now playing ---
+  getNowPlaying: () => ipcRenderer.invoke(IPC.TRACK_GET) as Promise<NowPlaying>,
   onTrack: (cb) => subscribe<TrackInfo>(IPC.TRACK_CHANGED, cb),
   onPlayback: (cb) => subscribe<PlaybackState>(IPC.TRACK_PLAYBACK, cb),
 

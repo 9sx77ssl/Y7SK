@@ -40,7 +40,7 @@ if (!gotLock) {
 
     const win = createMainWindow()
 
-    // Apply live persisted settings (alwaysOnTop + login-item/autostart sync).
+    // Apply live persisted settings (login-item / autostart sync).
     settings.applyAll(win)
 
     // Tray is always present; minimizeToTray only governs close behavior.

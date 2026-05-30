@@ -26,8 +26,7 @@ function quit(): void {
 // Build the tray's right-click menu.
 function buildMenu(ctx: AppContext): Menu {
   return Menu.buildFromTemplate([
-    { label: 'Open Y7SK', click: () => showWindow(ctx) },
-    { label: 'Show Window', click: () => showWindow(ctx) },
+    { label: 'Show Y7SK', click: () => showWindow(ctx) },
     { label: 'Reload', click: () => reloadSoundCloudView() },
     { type: 'separator' },
     { label: 'Quit', click: quit }

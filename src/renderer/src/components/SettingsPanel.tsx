@@ -16,7 +16,6 @@ interface RowDef {
 
 const ROWS: RowDef[] = [
   { key: 'launchOnStartup', label: 'Launch on startup', desc: 'Open Y7SK automatically when you sign in.' },
-  { key: 'alwaysOnTop', label: 'Always on top', desc: 'Keep the Y7SK window above all other windows.' },
   { key: 'hardwareAccel', label: 'Hardware acceleration', desc: 'Use the GPU for smoother rendering and playback.' },
   { key: 'startMinimized', label: 'Start minimized', desc: 'Launch hidden instead of showing the window.' },
   { key: 'minimizeToTray', label: 'Minimize to tray', desc: 'Closing the window keeps Y7SK running in the tray.' }
@@ -123,7 +122,7 @@ export function SettingsPanel({ onClose }: SettingsPanelProps): React.JSX.Elemen
             )}
           </div>
         ) : (
-          <div className="np np--idle">Nothing playing</div>
+          <span className="np--empty" />
         )}
 
         <span className="settings__about">

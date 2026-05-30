@@ -3,8 +3,6 @@
 export interface Settings {
   /** Launch Y7SK automatically on system login. */
   launchOnStartup: boolean
-  /** Keep the window above all others. */
-  alwaysOnTop: boolean
   /** Hardware acceleration (applied at startup; toggling needs a restart). */
   hardwareAccel: boolean
   /** Start hidden/minimized on launch. */
@@ -17,7 +15,6 @@ export type SettingKey = keyof Settings
 
 export const DEFAULT_SETTINGS: Settings = {
   launchOnStartup: false,
-  alwaysOnTop: false,
   hardwareAccel: true,
   startMinimized: false,
   minimizeToTray: true
@@ -31,7 +28,6 @@ export const RESTART_REQUIRED: SettingKey[] = ['hardwareAccel']
 /** electron-store JSON schema for the settings store (all booleans). */
 export const SETTINGS_SCHEMA = {
   launchOnStartup: { type: 'boolean', default: false },
-  alwaysOnTop: { type: 'boolean', default: false },
   hardwareAccel: { type: 'boolean', default: true },
   startMinimized: { type: 'boolean', default: false },
   minimizeToTray: { type: 'boolean', default: true }

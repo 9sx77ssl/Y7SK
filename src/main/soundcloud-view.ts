@@ -29,6 +29,19 @@ function parseUrl(raw: string): URL | null {
   }
 }
 
+// Dark, themed scrollbars injected into the SoundCloud page (replaces the default light one).
+const SCROLLBAR_CSS = `
+  html { scrollbar-color: #2b2b33 transparent; scrollbar-width: thin; }
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: #0f0f12; }
+  ::-webkit-scrollbar-thumb {
+    background: #2b2b33; border-radius: 8px;
+    border: 3px solid #0f0f12; background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3a44; background-clip: padding-box; }
+  ::-webkit-scrollbar-corner { background: #0f0f12; }
+`
+
 // Build the SoundCloud view (idempotent) and attach it under the host window.
 export function createSoundCloudView(win: BrowserWindow): WebContentsView {
   if (view) return view
@@ -47,6 +60,11 @@ export function createSoundCloudView(win: BrowserWindow): WebContentsView {
   win.contentView.addChildView(view)
 
   const wc = view.webContents
+
+  // Re-inject the dark scrollbar on every document load (initial + reloads).
+  wc.on('dom-ready', () => {
+    void wc.insertCSS(SCROLLBAR_CSS)
+  })
 
   // Popup policy: deny by default; route OAuth/other to the OS browser, allow SoundCloud popups.
   wc.setWindowOpenHandler(({ url }) => {
