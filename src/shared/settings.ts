@@ -9,6 +9,8 @@ export interface Settings {
   startMinimized: boolean
   /** Closing/minimizing hides to the tray instead of quitting. */
   minimizeToTray: boolean
+  /** Show a desktop notification when the track changes. */
+  trackNotifications: boolean
 }
 
 export type SettingKey = keyof Settings
@@ -17,7 +19,8 @@ export const DEFAULT_SETTINGS: Settings = {
   launchOnStartup: false,
   hardwareAccel: true,
   startMinimized: false,
-  minimizeToTray: true
+  minimizeToTray: true,
+  trackNotifications: true
 }
 
 export const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS) as SettingKey[]
@@ -30,7 +33,8 @@ export const SETTINGS_SCHEMA = {
   launchOnStartup: { type: 'boolean', default: false },
   hardwareAccel: { type: 'boolean', default: true },
   startMinimized: { type: 'boolean', default: false },
-  minimizeToTray: { type: 'boolean', default: true }
+  minimizeToTray: { type: 'boolean', default: true },
+  trackNotifications: { type: 'boolean', default: true }
 } as const
 
 /** Type guard: is `k` a valid, settable settings key. */

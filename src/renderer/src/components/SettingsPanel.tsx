@@ -16,9 +16,10 @@ interface RowDef {
 
 const ROWS: RowDef[] = [
   { key: 'launchOnStartup', label: 'Launch on startup', desc: 'Open Y7SK automatically when you sign in.' },
-  { key: 'hardwareAccel', label: 'Hardware acceleration', desc: 'Use the GPU for smoother rendering and playback.' },
+  { key: 'minimizeToTray', label: 'Minimize to tray', desc: 'Closing the window keeps Y7SK running in the tray.' },
   { key: 'startMinimized', label: 'Start minimized', desc: 'Launch hidden instead of showing the window.' },
-  { key: 'minimizeToTray', label: 'Minimize to tray', desc: 'Closing the window keeps Y7SK running in the tray.' }
+  { key: 'trackNotifications', label: 'Track notifications', desc: 'Show a desktop notification when the track changes.' },
+  { key: 'hardwareAccel', label: 'Hardware acceleration', desc: 'Use the GPU for smoother rendering and playback.' }
 ]
 
 interface SettingsPanelProps {

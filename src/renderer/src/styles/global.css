@@ -99,9 +99,9 @@ a {
   app-region: no-drag;
 }
 
-/* Focus visibility for keyboard users. */
+/* Focus visibility for keyboard users — neutral, no orange. */
 :focus-visible {
-  outline: 2px solid var(--accent-hi);
+  outline: 2px solid var(--border-strong);
   outline-offset: 2px;
 }
 

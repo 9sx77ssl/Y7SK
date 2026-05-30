@@ -69,12 +69,16 @@
   background: var(--surface-hover);
 }
 .titlebar__gear svg {
-  width: 18px;
-  height: 18px;
-  transition: transform var(--dur) var(--ease);
+  width: 17px;
+  height: 17px;
 }
-.titlebar__gear[data-active='true'] svg {
-  transform: rotate(35deg);
+
+/* No focus ring on window-chrome buttons (kills the orange outline on click). */
+.titlebar__gear:focus,
+.titlebar__gear:focus-visible,
+.wc__btn:focus,
+.wc__btn:focus-visible {
+  outline: none;
 }
 
 /* Window controls. */

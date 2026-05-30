@@ -3,6 +3,7 @@ import { ipcMain, nativeImage, Notification } from 'electron'
 import { IPC } from '@shared/ipc-channels'
 import type { NowPlaying, PlaybackState, TrackInfo } from '@shared/types'
 import type { AppContext } from './context'
+import * as settings from './settings'
 
 // Cached current now-playing so the renderer can pull it on mount (not only on change).
 let lastTrack: TrackInfo | null = null
@@ -81,8 +82,8 @@ export function initMedia(ctx: AppContext): void {
     lastTrack = track
     const win = ctx.getWindow()
     win?.webContents.send(IPC.TRACK_CHANGED, track)
-    // Surface a quiet desktop notification on track change.
-    if (Notification.isSupported()) {
+    // Surface a quiet desktop notification on track change (if enabled).
+    if (settings.get('trackNotifications') && Notification.isSupported()) {
       try {
         new Notification({
           title: track.title,
