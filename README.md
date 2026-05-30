@@ -46,6 +46,19 @@ bun run dist:win       # NSIS installer + portable   (run on Windows)
 bun run dist:mac       # DMG                          (run on macOS)
 ```
 
+> `bun run icons` is a maintainer-only script (needs `rsvg-convert` + ImageMagick); the generated icons are committed, so you never need it to run/build the app.
+
+## Troubleshooting
+
+**`Error: Electron uninstall` on `bun run dev`** — the Electron binary didn't download. bun skips Electron's own postinstall, so a `postinstall` script handles it. If it still fails:
+
+```bash
+rm -rf node_modules        # (Windows: rmdir /s /q node_modules)
+bun install                # postinstall downloads electron(.exe) automatically
+```
+
+Don't run installs with `--ignore-scripts`. Behind a proxy, set `HTTPS_PROXY` / `ELECTRON_MIRROR`. A non-ASCII Windows username is fine for dev (only matters when packaging an installer).
+
 ## Architecture
 
 ```
