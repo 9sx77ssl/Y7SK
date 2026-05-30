@@ -60,6 +60,34 @@ export function SettingsPanel({ onClose }: SettingsPanelProps): React.JSX.Elemen
     [playback]
   )
 
+  // Cookie-based sign-in / logout.
+  const [cookieText, setCookieText] = useState('')
+  const [authMsg, setAuthMsg] = useState<{ kind: 'ok' | 'err' | 'busy'; text: string } | null>(null)
+  const busy = authMsg?.kind === 'busy'
+
+  const handleImport = async (): Promise<void> => {
+    if (!cookieText.trim()) {
+      setAuthMsg({ kind: 'err', text: 'Paste your cookies JSON first.' })
+      return
+    }
+    setAuthMsg({ kind: 'busy', text: 'Importing…' })
+    const res = await window.y7sk.importCookies(cookieText)
+    if (res.ok) {
+      setAuthMsg({ kind: 'ok', text: `Imported ${res.count} cookies — signing in…` })
+      window.setTimeout(onClose, 900)
+    } else {
+      setAuthMsg({ kind: 'err', text: res.error ?? 'Import failed.' })
+    }
+  }
+
+  const handleLogout = async (): Promise<void> => {
+    setAuthMsg({ kind: 'busy', text: 'Logging out…' })
+    await window.y7sk.logout()
+    setCookieText('')
+    setAuthMsg({ kind: 'ok', text: 'Logged out — reloading…' })
+    window.setTimeout(onClose, 700)
+  }
+
   return (
     <section className="settings" role="region" aria-label="Settings">
       <div className="settings__header">
@@ -72,6 +100,34 @@ export function SettingsPanel({ onClose }: SettingsPanelProps): React.JSX.Elemen
       </div>
 
       <div className="settings__body">
+        <section className="account">
+          <div className="account__head">
+            <h2 className="settings__section">Account</h2>
+            <button className="btn btn--ghost" onClick={() => void handleLogout()} disabled={busy}>
+              Log out
+            </button>
+          </div>
+          <p className="account__hint">
+            Sign in by pasting your SoundCloud cookies as JSON — e.g. an export from the Cookie-Editor browser
+            extension.
+          </p>
+          <textarea
+            className="account__input"
+            spellCheck={false}
+            placeholder={'[ { "name": "oauth_token", "value": "…", "domain": ".soundcloud.com", "path": "/", "secure": true }, … ]'}
+            value={cookieText}
+            onChange={(e) => setCookieText(e.target.value)}
+          />
+          <div className="account__actions">
+            <button className="btn btn--accent" onClick={() => void handleImport()} disabled={busy}>
+              Sign in with cookies
+            </button>
+            {authMsg && (
+              <span className={'account__status account__status--' + authMsg.kind}>{authMsg.text}</span>
+            )}
+          </div>
+        </section>
+
         <div className="settings__list">
           {ROWS.map((row) => {
             const value = ready ? settings[row.key] : false

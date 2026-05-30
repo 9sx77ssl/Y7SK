@@ -1,4 +1,5 @@
 // Aggregate IPC registration for the host shell.
+import { registerAuthIpc } from '../auth'
 import type { AppContext } from '../context'
 import { registerSettingsIpc } from './settings.ipc'
 import { registerViewIpc } from './view.ipc'
@@ -9,4 +10,5 @@ export function registerIpc(ctx: AppContext): void {
   registerWindowIpc(ctx)
   registerViewIpc(ctx)
   registerSettingsIpc(ctx)
+  registerAuthIpc()
 }

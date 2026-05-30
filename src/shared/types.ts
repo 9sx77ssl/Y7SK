@@ -30,6 +30,13 @@ export interface NowPlaying {
   playback: PlaybackState
 }
 
+/** Result of importing pasted cookies into the SoundCloud session. */
+export interface CookieImportResult {
+  ok: boolean
+  count?: number
+  error?: string
+}
+
 /**
  * The API surface exposed on `window.y7sk` by `src/preload/index.ts`
  * (the trusted host-shell preload). The renderer consumes this; the preload
@@ -58,6 +65,12 @@ export interface Y7skApi {
   getNowPlaying(): Promise<NowPlaying>
   onTrack(cb: (track: TrackInfo) => void): () => void
   onPlayback(cb: (state: PlaybackState) => void): () => void
+
+  // --- Auth ---
+  /** Import pasted cookies (JSON array, e.g. a Cookie-Editor export) into the SoundCloud session. */
+  importCookies(json: string): Promise<CookieImportResult>
+  /** Clear the SoundCloud session (log out) and reload. */
+  logout(): Promise<void>
 
   // --- Environment ---
   platform: Platform

@@ -22,7 +22,11 @@ export const IPC = {
   // Now playing (scbridge -> main -> renderer; renderer pulls current via TRACK_GET)
   TRACK_CHANGED: 'track:changed',
   TRACK_PLAYBACK: 'track:playback',
-  TRACK_GET: 'track:get'
+  TRACK_GET: 'track:get',
+
+  // Auth (cookie import / logout on the persist:soundcloud session)
+  AUTH_IMPORT_COOKIES: 'auth:import-cookies',
+  AUTH_LOGOUT: 'auth:logout'
 } as const
 
 export type IpcChannel = (typeof IPC)[keyof typeof IPC]
