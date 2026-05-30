@@ -2,6 +2,10 @@ appId: com.y7sk.app
 productName: Y7SK
 copyright: Copyright © 2026 Y7SK
 
+# Local-only app: no auto-update / publishing (also avoids the updateInfo crash).
+publish: null
+electronUpdaterCompatibility: '>=2.16'
+
 directories:
   output: release/${version}
   buildResources: build
