@@ -26,7 +26,8 @@
     "dist:linux": "bun run build && electron-builder --linux AppImage deb",
     "dist:win": "bun run build && electron-builder --win nsis portable",
     "dist:mac": "bun run build && electron-builder --mac dmg",
-    "icons": "bun scripts/generate-icons.mjs"
+    "icons": "bun scripts/generate-icons.mjs",
+    "postinstall": "node node_modules/electron/install.js || bun node_modules/electron/install.js"
   },
   "trustedDependencies": [
     "electron",
