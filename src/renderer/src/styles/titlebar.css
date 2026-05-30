@@ -1,0 +1,106 @@
+/* Title bar shell + window controls. 40px frameless drag surface. */
+
+.titlebar {
+  height: var(--titlebar-h);
+  flex: 0 0 var(--titlebar-h);
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+}
+
+/* Left cluster: logo + wordmark. */
+.titlebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 12px;
+  pointer-events: none; /* clicks fall through to the drag surface */
+}
+
+.titlebar__logo {
+  width: 18px;
+  height: 18px;
+  display: block;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0 6px var(--accent-glow));
+}
+
+.titlebar__wordmark {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+.titlebar__wordmark b {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Flexible draggable middle. */
+.titlebar__spacer {
+  flex: 1 1 auto;
+  align-self: stretch;
+}
+
+/* Right cluster. */
+.titlebar__actions {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Settings (gear) toggle. */
+.titlebar__gear {
+  width: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--text-mute);
+  transition:
+    color var(--dur) var(--ease),
+    background var(--dur) var(--ease);
+}
+.titlebar__gear:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+.titlebar__gear[data-active='true'] {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.titlebar__gear svg {
+  width: 17px;
+  height: 17px;
+  transition: transform var(--dur) var(--ease);
+}
+.titlebar__gear[data-active='true'] svg {
+  transform: rotate(60deg);
+}
+
+/* Window controls. */
+.wc {
+  display: flex;
+  align-items: stretch;
+}
+.wc__btn {
+  width: 46px;
+  display: grid;
+  place-items: center;
+  color: var(--text-dim);
+  transition:
+    color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+.wc__btn svg {
+  width: 11px;
+  height: 11px;
+}
+.wc__btn:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.wc__btn--close:hover {
+  background: var(--danger);
+  color: #fff;
+}

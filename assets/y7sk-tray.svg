@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- monochrome Y7 glyph, centered, sized for legibility at 16-22px -->
+  <g fill="#ffffff">
+    <!-- Y: two arms meeting a stem -->
+    <path d="M196 250
+             L320 250
+             L432 452
+             L544 250
+             L668 250
+             L490 556
+             L490 800
+             L374 800
+             L374 556
+             Z"/>
+    <!-- 7: bold top bar + slanted diagonal -->
+    <path d="M556 250
+             L828 250
+             L828 344
+             L700 800
+             L580 800
+             L712 344
+             L556 344
+             Z"/>
+  </g>
+</svg>

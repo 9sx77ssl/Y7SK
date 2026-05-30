@@ -1,5 +1,19 @@
 import type { Settings, SettingKey } from './settings'
 
+/** Portable OS platform union (avoids depending on Node types in the renderer). */
+export type Platform =
+  | 'aix'
+  | 'android'
+  | 'darwin'
+  | 'freebsd'
+  | 'haiku'
+  | 'linux'
+  | 'openbsd'
+  | 'sunos'
+  | 'win32'
+  | 'cygwin'
+  | 'netbsd'
+
 export type PlaybackState = 'playing' | 'paused' | 'none'
 
 /** Now-playing metadata observed from the SoundCloud page's MediaSession. */
@@ -38,5 +52,5 @@ export interface Y7skApi {
   onPlayback(cb: (state: PlaybackState) => void): () => void
 
   // --- Environment ---
-  platform: NodeJS.Platform
+  platform: Platform
 }

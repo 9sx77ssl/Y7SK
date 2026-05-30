@@ -10,10 +10,15 @@ asar: true
 
 files:
   - out/**
+  - resources/**
   - package.json
   - '!**/*.{map,ts,tsx}'
   - '!docs/**'
   - '!src/**'
+
+# Keep icon/tray PNGs as real files on disk (nativeImage/tray read them reliably).
+asarUnpack:
+  - resources/**
 
 win:
   target:

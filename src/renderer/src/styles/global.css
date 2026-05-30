@@ -1,0 +1,129 @@
+/* Y7SK design tokens + base reset. Cohesive dark/glassy theme. */
+
+:root {
+  /* Surfaces */
+  --bg: #0f0f12;
+  --bg-2: #121216;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --glass: rgba(20, 20, 26, 0.72);
+
+  /* Hairline borders */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --text: #f4f4f6;
+  --text-dim: #b6b7c0;
+  --text-mute: #82838f;
+
+  /* Accent — SoundCloud orange */
+  --accent: #ff5500;
+  --accent-hi: #ff7733;
+  --accent-soft: rgba(255, 85, 0, 0.16);
+  --accent-glow: rgba(255, 85, 0, 0.35);
+
+  /* Status */
+  --danger: #e81123;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --dur: 150ms;
+  --dur-fast: 120ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Metrics */
+  --titlebar-h: 40px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: var(--accent-hi);
+  text-decoration: none;
+}
+
+/* Root layout: fixed title bar + flexible content region. */
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App-region helpers for the frameless window drag surface. */
+.drag {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+.no-drag {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+/* Focus visibility for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 2px;
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.13);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: var(--r-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+  background-clip: padding-box;
+}
