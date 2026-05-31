@@ -15,6 +15,7 @@ interface RowDef {
 }
 
 const ROWS: RowDef[] = [
+  { key: 'blockAds', label: 'Block ads & clutter', desc: 'Skip audio ads and hide upsell/promo junk from the SoundCloud UI.' },
   { key: 'launchOnStartup', label: 'Launch on startup', desc: 'Open Y7SK automatically when you sign in.' },
   { key: 'minimizeToTray', label: 'Minimize to tray', desc: 'Closing the window keeps Y7SK running in the tray.' },
   { key: 'startMinimized', label: 'Start minimized', desc: 'Launch hidden instead of showing the window.' },

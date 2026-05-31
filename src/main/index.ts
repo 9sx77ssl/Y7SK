@@ -1,6 +1,7 @@
 // Y7SK main-process entry: lifecycle, single-instance, window/view/tray/IPC/media wiring.
 import { app } from 'electron'
 import { electronApp } from '@electron-toolkit/utils'
+import { applyAdBlock } from './adblock'
 import type { AppContext } from './context'
 import { registerIpc } from './ipc'
 import { setQuitting } from './lifecycle'
@@ -51,6 +52,9 @@ if (!gotLock) {
 
     // Now-playing forwarding, notifications, Windows thumbar.
     initMedia(ctx)
+
+    // Ad/clutter blocking: set cleanup flag (before first dom-ready) + enable network blocking.
+    void applyAdBlock(settings.get('blockAds'))
   })
 
   // Real quit requested: flip the flag so close-to-tray won't intercept.

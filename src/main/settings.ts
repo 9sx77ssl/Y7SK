@@ -8,6 +8,7 @@ import {
   type Settings,
   SETTINGS_SCHEMA
 } from '@shared/settings'
+import { applyAdBlock } from './adblock'
 import { setLinuxAutostart } from './util/autostart-linux'
 
 // Single persisted settings store (file: settings.json in userData).
@@ -59,6 +60,13 @@ export function applySetting<K extends SettingKey>(
       break
     case 'minimizeToTray':
       // Stored only; gates the close-to-tray handler live (read at close time).
+      break
+    case 'trackNotifications':
+      // Stored only; read at notification time.
+      break
+    case 'blockAds':
+      // Live: toggle network blocking + page cleanup, then reload to (un)apply.
+      void applyAdBlock(on, true)
       break
   }
 }

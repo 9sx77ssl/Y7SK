@@ -11,6 +11,8 @@ export interface Settings {
   minimizeToTray: boolean
   /** Show a desktop notification when the track changes. */
   trackNotifications: boolean
+  /** Block ads + remove upsell/clutter from the SoundCloud UI. */
+  blockAds: boolean
 }
 
 export type SettingKey = keyof Settings
@@ -20,7 +22,8 @@ export const DEFAULT_SETTINGS: Settings = {
   hardwareAccel: true,
   startMinimized: false,
   minimizeToTray: true,
-  trackNotifications: true
+  trackNotifications: true,
+  blockAds: true
 }
 
 export const SETTING_KEYS = Object.keys(DEFAULT_SETTINGS) as SettingKey[]
@@ -34,7 +37,8 @@ export const SETTINGS_SCHEMA = {
   hardwareAccel: { type: 'boolean', default: true },
   startMinimized: { type: 'boolean', default: false },
   minimizeToTray: { type: 'boolean', default: true },
-  trackNotifications: { type: 'boolean', default: true }
+  trackNotifications: { type: 'boolean', default: true },
+  blockAds: { type: 'boolean', default: true }
 } as const
 
 /** Type guard: is `k` a valid, settable settings key. */

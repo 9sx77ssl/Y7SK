@@ -5,6 +5,7 @@ import appIcon from '../../resources/icon.png?asset'
 import { IPC } from '@shared/ipc-channels'
 import { isQuitting } from './lifecycle'
 import * as settings from './settings'
+import { blockDevtoolsShortcuts } from './util/devtools'
 import {
   createSoundCloudView,
   getSoundCloudView,
@@ -50,11 +51,13 @@ export function createMainWindow(): BrowserWindow {
       preload: join(import.meta.dirname, '../preload/index.js'),
       contextIsolation: true,
       sandbox: true,
-      nodeIntegration: false
+      nodeIntegration: false,
+      devTools: false // DevTools fully disabled
     }
   })
 
   mainWindow = win
+  blockDevtoolsShortcuts(win.webContents)
 
   // Restore maximized state after construction so normal-bounds stay intact.
   if (state.maximized) win.maximize()
